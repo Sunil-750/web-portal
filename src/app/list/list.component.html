@@ -1,53 +1,59 @@
 <div class="list">
-  <div id="navbar">
-    <ul>
-      <li><a>Pending</a></li>
-      <li><a >All</a></li>
-      <li><a >Approved</a></li>
-      <li><a >Rejected</a></li>
-    </ul>
-</div>
-<div id="list-div" >
+          <div id="navbar">
+            <!--Drop Down list functions
+                move to list.component.ts  to code the below functions
+            -->
+            <div class="dropdown">
+              <button class="dropbtn">Filter</button>
+              <div class="dropdown-content">
+                <a (click)="getAll()">All</a>
+                <a (click)="getPending()">Pending</a>
+                <a (click)="getApproved()">Approved</a>
+                <a (click)="getRejected()">Rejected</a>
+              </div>
+            </div>
+        </div>
+        <div id="list-div" >
 
-  <table class="list-table" style="width: 100%;">
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Amount</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody >
-      <tr *ngFor="let data of userData" [class.selected]="data === selectedUser" (click)="getCurrentUser(data)">
-        <td>{{data.id}}</td>
-        <td>{{data.name}}</td>
-        <td>{{data.amount}}</td>
-        <td *ngIf="data.status == 0">Panding</td>
-        <td *ngIf="data.status == 1" style ="color: green;">Approved</td>
-        <td *ngIf="data.status == -1" style="color: orangered;">Rejected</td>
+          <table class="list-table" style="width: 100%;">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody >
+              <tr *ngFor="let data of userData" [class.selected]="data === selectedUser" (click)="getCurrentUser(data)">
+                <td>{{data.id}}</td>
+                <td>{{data.name}}</td>
+                <td>{{data.amount}}</td>
+                <td *ngIf="data.status == 0">Panding</td>
+                <td *ngIf="data.status == 1" style ="color: green;">Approved</td>
+                <td *ngIf="data.status == -1" style="color: orangered;">Rejected</td>
+                
+              </tr>
+            </tbody>
+          <!--
+          <ul *ngfor="let data of userData">
+            {{data.id}} <br>{{data.name}}
+            <button class="btn-primary" (click)="getCurrentUser(data)">Open</button>
+          </ul>
+        -->
+
+        </table>
+        </div>
+        <!--
+            <div class="pagination">
+          <a href="">&laquo;</a>
+          <a href="">&raquo;</a>
+        </div>
+        -->
         
-      </tr>
-    </tbody>
-  <!--
-  <ul *ngfor="let data of userData">
-    {{data.id}} <br>{{data.name}}
-    <button class="btn-primary" (click)="getCurrentUser(data)">Open</button>
-  </ul>
--->
-
-</table>
 </div>
-<div class="pagination">
-  <a href="">&laquo;</a>
-  <a  href="">1</a>
-  <a href="">2</a>
-  <a href="">3</a>
-  <a href="">&raquo;</a>
-</div>
-</div>
-<div *ngIf="selectedUser"  class="content">
- <div  class="bill-details">
+<div *ngIf="selectedUser; else messageDiv"  class="content">
+    <div  class="bill-details">
       <table style="font-size: 20px;">
         <tr>
           <td>Employee Name :</td>
@@ -66,73 +72,31 @@
           <td></td>
         </tr>
       </table>
- </div>
+    </div>
     <div class="bill-image">
       <img src="walkover-logo.png" height="100%">
     </div>
-    <div>
-      <div style="float: left;width: 70%;">
-        <p style="font-size: 13px;">Requested Date :      |  Bill review Date :</p>
+    <div >
+        <div style="float: left;width: 70%;">
+            <p style="font-size: 13px;">Requested Date :      |  Bill review Date :</p>
+
+
         <!--<p *ngIf="selectedUser.modified_date">Bill review Date :</p>-->
-      </div>
-      <div *ngIf="selectedUser.status==0"class="response-btn">
-        <button class="approve-btn">Approve</button>
-        <button class="reject-btn">Reject</button>
-      </div>
-      <div *ngIf="selectedUser.status==1"class="response-btn">
-        <button class="reject-btn">Reject</button>
-      </div>
-      <div *ngIf="selectedUser.status==-1" class="response-btn">
-        <button class="approve-btn">Approve</button>
-        
-      </div>
+        </div>
+              <div *ngIf="selectedUser.status==0"class="response-btn">
+                <button class="approve-btn">Approve</button>
+                <button class="reject-btn">Reject</button>
+              </div>
+              <div *ngIf="selectedUser.status==1"class="response-btn">
+                <button class="reject-btn">Reject</button>
+              </div>
+              <div *ngIf="selectedUser.status==-1" class="response-btn">
+                <button class="approve-btn">Approve</button>
+                
+              </div>
     </div>
     
 </div>
-<!--
-  <div id="navbar">
-    <ul>
-      <li><a>Pending</a></li>
-      <li><a >All</a></li>
-      <li><a >Approved</a></li>
-      <li><a >Rejected</a></li>
-    </ul>
-</div>
-<div id="list-div" >
-
-  <table class="list-table" style="width: 100%;">
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Amount</th>
-      </tr>
-    </thead>
-    <tbody >
-      <tr *ngFor="let data of userData" (click)="getCurrentUser(data)">
-        <td>{{data.id}}</td>
-        <td>{{data.name}}</td>
-        <td>{{data.amount}}</td>
-        
-      </tr>
-    </tbody>
-  <!--
-  <ul *ngfor="let data of userData">
-    {{data.id}} <br>{{data.name}}
-    <button class="btn-primary" (click)="getCurrentUser(data)">Open</button>
-  </ul>
--->
-<!--
-</table>
-</div>
-<div class="pagination">
-  <a href="">&laquo;</a>
-  <a  href="">1</a>
-  <a href="">2</a>
-  <a href="">3</a>
-  <a href="">&raquo;</a>
-</div>
--->
-
-
-
+<ng-template #messageDiv>
+  <div class="selectMessage" ><h1 style="vertical-align: middle;">Select bill to view.</h1></div>
+</ng-template>
